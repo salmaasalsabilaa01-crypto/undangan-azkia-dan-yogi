@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Azkia & Yogi</title>
+
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #cfd8d2; /* fallback sage */
+      overflow-x: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* 🌿 Cover baru — Sage Watercolor */
+    .cover {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      background: url("https://i.ibb.co/3pGD8fX/sage-watercolor.jpg") no-repeat center/cover;
+      z-index: 20;
+      transition: opacity 1s ease;
+    }
+
+    .cover.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #2f3e36;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      color: #2f3e36;
+      opacity: .8;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      background: #ffffffee;
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: white;
+    }
+
+
+    /* ⭐ Wrapper agar Canva tampil seperti undangan web */
+    .canva-wrapper {
+      width: 100%;
+      max-width: 500px; /* seperti undangan web biasa */
+      margin: auto;
+      padding-top: 20px;
+    }
+
+    .responsive-frame {
+      position: relative;
+      width: 100%;
+      padding-top: 177%; /* aspek rasio poster Canva */
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .responsive-frame iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* mobile */
+    @media (max-width: 480px) {
+      h1 { font-size: 1.8rem; }
+      h3 { font-size: .9rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🌿 Cover -->
+  <div class="cover" id="cover">
+    <h1>Azkia & Yogi</h1>
+    <h3 id="guestName">Kepada Yth. Bapak/Ibu/Saudara/i</h3>
+    <button class="btn" id="openInvitation">Buka Undangan</button>
+  </div>
+
+  <!-- ⭐ Isi undangan tampil seperti undangan web -->
+  <div class="canva-wrapper">
+    <div class="responsive-frame">
+      <iframe 
+        id="canvaFrame"
+        src="https://www.canva.com/design/DAG3otr7UWg/IPhVD75nWfujUWxp3mdEXQ/view?embed" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- 🎵 Musik -->
+  <audio id="bgMusic" src="./assets/lagu.mp3" preload="auto" loop></audio>
+
+  <script>
+    const cover = document.getElementById("cover");
+    const btn = document.getElementById("openInvitation");
+    const music = document.getElementById("bgMusic");
+
+    // nama tamu dari URL
+    const params = new URLSearchParams(window.location.search);
+    const guest = params.get("to");
+    if (guest) {
+      document.getElementById("guestName").textContent =
+        "Kepada Yth. " + decodeURIComponent(guest);
+    }
+
+    // tombol buka undangan
+    btn.addEventListener("click", () => {
+      cover.classList.add("hidden");
+
+      setTimeout(() => {
+        music.play().catch(() => {});
+      }, 800);
+    });
+  </script>
+
+</body>
+</html>
